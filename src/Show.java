@@ -1,19 +1,28 @@
 import java.util.Date;
 
 public class Show {
-    private int id ;
-    private Date showTime ;
+    public static int idCounter = 0;
+    private int id;
+    private Date showTime;
     private int availableSeats;
 
-    private Movie movie ;
-    private Theater theater ;
+    private Movie movie;
+    private Theater theater;
 
-    public Show(int id, Date showTime, Movie movie, Theater theater) {
-        this.id = id;
+    public Show(Date showTime, Movie movie, Theater theater) {
+        idCounter++;
+        this.id = idCounter;
         this.showTime = showTime;
         this.movie = movie;
         this.theater = theater;
-        this.availableSeats = theater.getCapacity() ;
+        this.availableSeats = theater.getCapacity();
+        theater.getShows().add(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Show [id=" + id + ", showTime=" + showTime + ", availableSeats=" + availableSeats + ", movie=" + movie
+                + ", theater=" + theater + "]";
     }
 
     public int getId() {
@@ -56,5 +65,17 @@ public class Show {
         this.theater = theater;
     }
 
-    
+    public Ticket bookTicket(int seats, User user) throws Exception {
+        if (availableSeats < seats) {
+            throw new Exception("Seats not available");
+        }
+
+        Ticket ticket = new Ticket(user.getName(), new Date(), seats, theater.getName());
+
+        this.availableSeats -= seats;
+        System.out.println("Ticket Booked Successfully");
+
+        return ticket;
+    }
+
 }

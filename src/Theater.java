@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Theater {
+    private static int idCounter = 0 ;
     private int id ;
     private String name ;
     private String location ;
@@ -9,8 +10,9 @@ public class Theater {
 
     private List<Show> shows ;
 
-    public Theater(int id, String name, String location, int capacity) {
-        this.id = id;
+    public Theater(String name, String location, int capacity) {
+        idCounter++ ;
+        this.id = idCounter;
         this.name = name;
         this.location = location;
         this.capacity = capacity;
@@ -55,5 +57,10 @@ public class Theater {
 
     public void setShows(List<Show> shows) {
         this.shows = shows;
+    }
+
+    public void updateShow(Show oldShow , Show newShow){
+        this.shows.remove(oldShow);
+        this.shows.add(newShow);
     }
 }

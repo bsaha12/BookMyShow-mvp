@@ -1,5 +1,14 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class App {
-    public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
+
+    private List<User> users;
+    private List<Theater> theaters;
+
+    public App() {
+        users = new ArrayList<>();
+        theaters = new ArrayList<>();
     }
+
 }
